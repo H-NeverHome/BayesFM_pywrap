@@ -3,7 +3,7 @@ Proudly presenting: a handy python wrapper for the excellent R-package 'BayesFM'
 
 Functions and methods largely named synonymous in wrapper as  in 'Bayes_FM'-package. For details on function-arguments regarding prior specification, MCMC parameters etc. consult 'Bayes_FM' documentation.
 
-**_ This is a very early version. No guarantees of any kind - usage on own risk. Expect bugs. Check results. _**
+**_This is a very early version. No guarantees of any kind - usage on own risk. Expect bugs. Check results._**
 
 ## 'BayesFM' R-Package
 - Original Author 'BayesFM': Rémi Piatek 
