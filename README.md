@@ -30,18 +30,19 @@ Functions and methods largely named synonymous in wrapper as  in 'Bayes_FM'-pack
 - Prior simulation/ prior predictive checks
   - Number of active factors
   - Covariance matrix 
--  MCMC fitting procedure with informative & uninformative priors
-
+-  MCMC fitting procedure with informative & uninformative priors on covariance matrix
+- Plotting via arviz-backend (DONE)
+  - [Autocorrelation-plot](https://arviz-devs.github.io/arviz/api/generated/arviz.plot_autocorr.html#arviz.plot_autocorr)
+  - [Trace-plot](https://arviz-devs.github.io/arviz/api/generated/arviz.plot_trace.html)
+  - 
 ### 'BayesFM' features (currently) **_not_** accessible via BayesFM_pywrap
 - 'simul.dedic.facmod' i.e. generating synthetic data from a dedicated factor model
 - Any plotting in R backend (likely adaption to arviz)
 - Inclusion of covariates
 
 ### (Planned) extensions only available via BayesFM_pywrap
-- Plotting via arviz-backend
-  - [Autocorrelation-plot](https://arviz-devs.github.io/arviz/api/generated/arviz.plot_autocorr.html#arviz.plot_autocorr)
-  - [Trace-plot](https://arviz-devs.github.io/arviz/api/generated/arviz.plot_trace.html)
-- Additional MCMC convergence diagnostics (see e.g. ["Convergence Diagnostics for Markov Chain Monte Carlo"](https://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-031219-041300) by Roy(2020))
+- MCMC autocovariariance estimates and arviz autocorrelation plots
+- Additional MCMC convergence diagnostics (curr. scrapped due to sign/column switching issues with multiple chains) (see e.g. ["Convergence Diagnostics for Markov Chain Monte Carlo"](https://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-031219-041300) by Roy(2020))
   - Effective sample size
   - Gelman-Rubin/ R-hat
 
