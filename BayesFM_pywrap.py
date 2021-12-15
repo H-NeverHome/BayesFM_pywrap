@@ -220,7 +220,9 @@ class befa:
         from rpy2.robjects.packages import importr
         import pandas as pd
         import numpy as np
+        
         #from befa_rpy_class_import import r_to_pd,pd_to_r
+        
         ro.r('set.seed(seed_curr)')
         ## mcmc run/ only 50k -> >100k gives weird error
         globalenv['sim_mcmc_nrep'] = 25000
