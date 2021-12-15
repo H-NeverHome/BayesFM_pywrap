@@ -49,7 +49,7 @@ Functions, arguments and methods largely named synonymous in wrapper as  in 'Bay
   - Gelman-Rubin/ R-hat
 
 ### BayesFM_pywrap usecase
-- A brief usecase of the wrapper will be provided using raw questionnaire data of the Narcissistic Personality Inventory 40 (NPI-40) by [Raskin & Terry (1988)](https://psycnet.apa.org/buy/1988-25254-001) provided by the [Open-Psychometrics database](https://openpsychometrics.org/_rawdata/) [in the works]
+- A brief usecase of the wrapper will be provided using raw questionnaire data of the Narcissistic Personality Inventory 40 (NPI-40) by [Raskin & Terry (1988)](https://psycnet.apa.org/buy/1988-25254-001) provided by the excellent [Open-Psychometrics database](https://openpsychometrics.org/_rawdata/) [in the works]
 
 
 
