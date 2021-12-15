@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec  8 13:08:54 2021
-
-@author: oem
-"""
-
 
 
 ''' 
