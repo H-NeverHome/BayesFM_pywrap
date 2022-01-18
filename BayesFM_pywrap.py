@@ -369,8 +369,8 @@ class befa:
                                               HW.prior = TRUE)''')
         
         ## Column and sign switching issues
-        ro.r('befa_RES <- BayesFM::post.column.switch(befa_RES)')
-        ro.r('befa_RES <- BayesFM::post.sign.switch(befa_RES)')
+        ro.r('befa_RES <- BayesFM::post.column.switch(mcmc = befa_RES)')
+        ro.r('befa_RES <- BayesFM::post.sign.switch(mcmc = befa_RES)')
 
         ### get summary
         ro.r('''res_all_uninf <- summary(befa_RES,what = 'maxp')''')
@@ -392,6 +392,19 @@ class befa:
         ro.r('''res_all_nfac_uninf <- res_all_uninf$nfac''')
         ro.r('rw_nfac_uninf <- rownames(res_all_nfac_uninf)')
         #ro.r('print(rw_nfac_uninf)')
+        
+        ## get all params
+        params = ['mcmc_burnin',
+                  'mcmc_niter',
+                  'Nid',
+                  'Kmax',
+                  'kappa',
+                  'beta_1',
+                  'beta_2']
+        res_params = {}
+        for param in params:
+            res_params[param] = pd.DataFrame(r_to_pd(globalenv[param]))
+            
         
         ## get and organize factor solution & probs
         n_factors = len(r_to_pd(globalenv['res_all_nfac_uninf']))
@@ -446,7 +459,8 @@ class befa:
                 'results_raw_mcmc_DF': dict_res,
                 'results_inference_dat':inf_dat_az,
                 'variables': names_all,
-                'seed' : ... }         
+                'seed' : ... ,
+                'res_params':res_params}         
         
         
 
@@ -586,6 +600,7 @@ class befa:
             self.summary_fac_load = res_1['results_summary']['fac_load']
             self.pkldat = res_1
             safe_html = self.savepath
+            res_1['suppl_param'] = self.params
             for summ in res_1['results_summary']:
                 res_1['results_summary'][summ].to_html(safe_html + '/' + summ + '.html' )
             return res_1
@@ -612,6 +627,8 @@ class befa:
         curr_inference_dat = self.posterior_inf_data
         res_path = Path(self.savepath+'/posterior_plots')
         print('Producing posterior plots')
+        prnt_msg = 'plotting posterior dist of '
+        plot_dpi = 250
 
         if res_path.exists() == True:
             None
@@ -619,6 +636,7 @@ class befa:
             os.makedirs(res_path)
         
         for var in what:
+            #check if discrete
             if var in ['dedic','nfac','MHacc']:
                 print('plotting ' + f"{var}")
                 kind = 'hist'
@@ -629,12 +647,12 @@ class befa:
                                          point_estimate = None)
                 curr_path1 = res_path / f"{var}.png"
                 plt.savefig(curr_path1,
-                            dpi=500,
+                            dpi=plot_dpi,
                             format = 'png')                
                 
             if var=='alpha':
-                print('plotting ' + f"{var}")
-                #### maek extra directory for alpha
+                print(prnt_msg + f"{var}")
+                #### make extra directory for alpha
                 alpha_path = Path(str(res_path) +'/'+'alpha')
                 if alpha_path.exists() == True:
                     None
@@ -653,13 +671,13 @@ class befa:
                                                    point_estimate='mean')               
                     file_alpha = str(alpha_path) +'/' +alpha+'.png'
                     plt.savefig(file_alpha,
-                                dpi=500,
+                                dpi=plot_dpi,
                                 format = 'png')
                     plt.clf()  
                     
                     
             elif var == 'sigma':
-                print('plotting ' + f"{var}")
+                print(prnt_msg + f"{var}")
                 #### maek extra directory for alpha
                 sigma_path = Path(str(res_path) +'/'+'sigma')
                 if sigma_path.exists() == True:
@@ -679,14 +697,14 @@ class befa:
                                                    point_estimate='mean')               
                     file_sigma = str(sigma_path) +'/' + sigma +'.png'
                     plt.savefig(file_sigma,
-                                dpi=500,
+                                dpi=plot_dpi,
                                 format = 'png')
                     plt.clf()                 
                 
                 
-            if var=='R':
+            elif var == 'R':
                 #### maek extra directory for alpha
-                print('plotting ' + f"{var}")
+                print(prnt_msg + f"{var}")
                 r_path = Path(str(res_path) +'/'+'R')
                 if r_path.exists() == True:
                     None
@@ -705,7 +723,7 @@ class befa:
                                                point_estimate='mean')               
                     file_r = str(r_path) +'/' +r+'.png'
                     plt.savefig(file_r,
-                                dpi=500,
+                                dpi=plot_dpi,
                                 format = 'png')
                     plt.clf()     
                     
@@ -713,7 +731,7 @@ class befa:
             
             
 
-
+### TODO Rework urgently 
     def plot_traces(self,what):
         import arviz as az
         import matplotlib.pyplot as plt
