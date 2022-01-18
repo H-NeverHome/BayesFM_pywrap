@@ -885,7 +885,7 @@ class befa:
                       center=0.,
                       cmap="coolwarm",
                       linewidths = .9,
-                      xticklabels = [i.split(':')[1] for i in plot_alpha])
+                      xticklabels = [i for i in plot_alpha])
         hm.set_yticklabels(hm.get_yticklabels(),
                           rotation=0)
 
